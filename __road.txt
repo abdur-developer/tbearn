@@ -1,0 +1,9 @@
+User Panel::::::
+1. login
+2. signup
+3. withdraw
+4. deposit
+5. helpline
+6. refer
+
+Admin Panel:::::
