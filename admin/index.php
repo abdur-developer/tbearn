@@ -173,6 +173,20 @@
                         <h3> Slider</h3>
                     </a>
 
+                    <a href="?q=method" class="nav-option option4">
+                        <img src="../img/payment.png"
+                            class="nav-img" 
+                            alt="institution">
+                        <h3> Method</h3>
+                    </a>
+
+                    <a href="?q=task" class="nav-option option4">
+                        <img src="../img/work.webp"
+                            class="nav-img" 
+                            alt="institution">
+                        <h3> Task</h3>
+                    </a>
+
                     <a href="?q=profile" class="nav-option option5">
                         <img src="../img/profile.webp"
                             class="nav-img" 
@@ -225,6 +239,10 @@
                     include "sec/setting.php";
                 }elseif($q == 'user_details'){
                     include "sec/user_details.php";
+                }elseif($q == 'method'){
+                    include "sec/method.php";
+                }elseif($q == 'task'){
+                    include "sec/task.php";
                 }elseif($q == 'slider'){
                     include "sec/slider.php";
                 }

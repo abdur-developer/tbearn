@@ -204,6 +204,25 @@
         }
     }
     // ============================================================ package details
+    // ============================================================ task details
+    if(isset($_REQUEST['task_link'])){
+        $amount = $_REQUEST['task_amount'];
+        $link = $_REQUEST['task_link'];
+        $time = $_REQUEST['task_time'];
+        $action = $_REQUEST['action'];
+
+        $sql = "";
+        if($action == "add"){
+            $sql = "INSERT INTO task (time_s, link, amount) VALUES ('$time', '$link', '$amount')";
+        }else{
+            $p_id = $_REQUEST['task_id'];
+            $sql = "UPDATE task SET time_s = '$time', link = '$link', amount = '$amount' WHERE id = $p_id";
+        }
+        if(mysqli_query($conn, $sql)){
+            header("location: ?success=Successfull action&q=task");
+        }
+    }
+    // ============================================================ task details
 
     // ============================================================ Setting details
     // ?=&sys-=&sys-=&sys-=&sys-=&sys-=
@@ -223,6 +242,20 @@
 
     }
     // ============================================================ Setting details
+    // ============================================================ Method details
+    if(isset($_REQUEST['bkash'])){
+        $bkash = $_REQUEST['bkash'];
+        $nagad = $_REQUEST['nagad'];
+        $rocket = $_REQUEST['rocket'];
+
+        $sql = "UPDATE method SET b_number = '$bkash', n_number = '$nagad',r_number = '$rocket'  WHERE id = '1'";
+        
+        if(mysqli_query($conn, $sql)){
+            header("location: ?success=Successfull updated&q=method");
+        }
+
+    }
+    // ============================================================ Method details
 
     // ============================================================ Search details
     // search
