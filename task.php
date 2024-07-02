@@ -31,6 +31,7 @@
         <link rel="preload" href="style.css" as="style"/>
         <link rel="stylesheet" href="bootstrap.min.css"/>
         <link rel="stylesheet" href="style.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <style>
             img {
                 height: 60px;
@@ -136,6 +137,32 @@
         </style>
     </head>
     <body>
+    <?php
+        if(isset($_REQUEST['error'])){
+            $error = $_REQUEST['error'];
+            echo "
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '$error'
+                    });
+            </script>
+            ";
+        }
+        if(isset($_REQUEST['success'])){
+            $success = $_REQUEST['success'];
+            echo "
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'WOW...',
+                    text: '$success'
+                    });
+            </script>
+            ";
+        }
+        ?>
         <div id="__next">
             <div class="min-h-screen bg-[#ebebeb] pb-10">
                 <div class="h-14 w-full bg-[#008000] pl-4  gap-5 shadow text-white flex items-center ">

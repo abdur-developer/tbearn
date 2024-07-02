@@ -187,6 +187,13 @@
                         <h3> Task</h3>
                     </a>
 
+                    <a href="?q=refer" class="nav-option option4">
+                        <img src="../img/refer.webp"
+                            class="nav-img" 
+                            alt="institution">
+                        <h3> Refer</h3>
+                    </a>
+
                     <a href="?q=profile" class="nav-option option5">
                         <img src="../img/profile.webp"
                             class="nav-img" 
@@ -245,6 +252,8 @@
                     include "sec/task.php";
                 }elseif($q == 'slider'){
                     include "sec/slider.php";
+                }elseif($q == 'refer'){
+                    include "sec/refer.php";
                 }
             }else{
                 include "sec/dashboard.php";

@@ -209,14 +209,15 @@
         $amount = $_REQUEST['task_amount'];
         $link = $_REQUEST['task_link'];
         $time = $_REQUEST['task_time'];
+        $desc = $_REQUEST['task_desc'];
         $action = $_REQUEST['action'];
 
         $sql = "";
         if($action == "add"){
-            $sql = "INSERT INTO task (time_s, link, amount) VALUES ('$time', '$link', '$amount')";
+            $sql = "INSERT INTO task (time_s, link, amount, describtion) VALUES ('$time', '$link', '$amount', '$desc')";
         }else{
             $p_id = $_REQUEST['task_id'];
-            $sql = "UPDATE task SET time_s = '$time', link = '$link', amount = '$amount' WHERE id = $p_id";
+            $sql = "UPDATE task SET time_s = '$time', link = '$link', amount = '$amount', describtion = '$desc' WHERE id = $p_id";
         }
         if(mysqli_query($conn, $sql)){
             header("location: ?success=Successfull action&q=task");
@@ -225,7 +226,6 @@
     // ============================================================ task details
 
     // ============================================================ Setting details
-    // ?=&sys-=&sys-=&sys-=&sys-=&sys-=
     if(isset($_REQUEST['sys-name'])){
         $sys_name = $_REQUEST['sys-name'];
         $sys_link = $_REQUEST['sys-link'];
@@ -233,8 +233,9 @@
         $sys_group = $_REQUEST['sys-group'];
         $sys_support = $_REQUEST['sys-support'];
         $sys_ceo = $_REQUEST['sys-seo'];
+        $sys_bonus = $_REQUEST['sys-bonus'];
 
-        $sql = "UPDATE system_set SET name = '$sys_name', base_link = '$sys_link', tg_channel = '$sys_channel', tg_group = '$sys_group', tg_support = '$sys_support', tg_ceo = '$sys_ceo' WHERE id = '1'";
+        $sql = "UPDATE system_set SET name = '$sys_name', base_link = '$sys_link', tg_channel = '$sys_channel', tg_group = '$sys_group', tg_support = '$sys_support', tg_ceo = '$sys_ceo', register_bonus = '$sys_bonus' WHERE id = 1";
         
         if(mysqli_query($conn, $sql)){
             header("location: ?success=Successfull updated&q=setting");
@@ -242,6 +243,23 @@
 
     }
     // ============================================================ Setting details
+    // ============================================================ Refer details
+    //ref_one=10&ref_two=9&ref_three=8&ref_four=7&ref_five=0
+    if(isset($_REQUEST['ref_one'])){
+        $one = $_REQUEST['ref_one'];
+        $two = $_REQUEST['ref_two'];
+        $three = $_REQUEST['ref_three'];
+        $four = $_REQUEST['ref_four'];
+        $five = $_REQUEST['ref_five'];
+
+        $sql = "UPDATE refer SET one = '$one', two = '$two', three = '$three', four = '$four', five = '$five' WHERE id = '1'";
+        
+        if(mysqli_query($conn, $sql)){
+            header("location: ?success=Successfull updated&q=refer");
+        }
+
+    }
+    // ============================================================ Refer details
     // ============================================================ Method details
     if(isset($_REQUEST['bkash'])){
         $bkash = $_REQUEST['bkash'];

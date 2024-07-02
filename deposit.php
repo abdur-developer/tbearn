@@ -4,12 +4,25 @@ if(isset($_REQUEST['trx'])){
     $method = $_REQUEST['method'];
     $amount = $_REQUEST['amount'];
     $trx = $_REQUEST['trx'];
-    $sql = "INSERT INTO deposit (method, amount, trx_id, user_id)
-    VALUES ('$method', '$amount', '$trx', '$sessionId')";
-    
-    if(mysqli_query($conn, $sql)){
-        header("location: index.php?success=Deposit successfull please wait for confirmation");
+    $sql = "SELECT COUNT(*) as count FROM users WHERE number = '$number'";
+    $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+    $count = $row['count'];
+    if($count == 0){
+        if(strlen($trx) > 6){
+            $sql = "INSERT INTO deposit (method, amount, trx_id, user_id)
+            VALUES ('$method', '$amount', '$trx', '$sessionId')";
+            
+            if(mysqli_query($conn, $sql)){
+                header("location: index.php?success=Deposit successfull please wait for confirmation");
+            }
+        }else{
+            header("location: index.php?error=This is not a transection Id");
+        }
+        
+    }else{
+        header("location: index.php?error=Transection Id already inserted");
     }
+    
 }
 //UPDATE `method` SET `r_number` = '01709409266' WHERE `method`.`id` = 1;
 $sql = "SELECT * FROM method WHERE id = 1";

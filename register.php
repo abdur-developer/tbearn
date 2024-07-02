@@ -1,6 +1,5 @@
 <?php
 require "includes/dbcon.php";
-    // name=Md+ABDUR+RAHMAN&number=54645&password=34645&confirm=456457&refer=364564
     if(isset($_POST['number'])){
         $name = $_POST['name'];
         $number = $_POST['number'];
@@ -22,8 +21,9 @@ require "includes/dbcon.php";
                 if ($count > 0) {
                     header("location: register.php?error=This number has been used before. Please login..!");
                 }else{
-                    $sql = "INSERT INTO users (name, number, password, ref_code, ref_by)
-                    VALUES ('$name', '$number', '$has_pass', '$ref_code', '$refer')";
+                    $bonus = $sys_set['register_bonus'];
+                    $sql = "INSERT INTO users (name, number, password, ref_code, ref_by, balance)
+                    VALUES ('$name', '$number', '$has_pass', '$ref_code', '$refer', '$bonus')";
                     
                     if(mysqli_query($conn, $sql)){
                         $id = mysqli_insert_id($conn);

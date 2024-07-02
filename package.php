@@ -13,7 +13,60 @@
               VALUES ('$sessionId', '$amount', 'buy package', '".generateRandomText()."')";
 
               if(mysqli_query($conn, $sql)){
-                  header("location: task.php?success=Successfully buy a plan");
+                  // ================================================================================
+                  // ================================================================================
+                  $ot_ref_code = $user['ref_by'];//1st gen ref code
+                  $my_ref_code = $user['ref_code'];//my ref code
+
+                  
+                  $sql = "SELECT * FROM refer WHERE id = 1";
+                  $sr = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                  $bonus_list = array($sr['one'], $sr['two'], $sr['three'], $sr['four'], $sr['five']);                
+                  $x = 0;
+                  function refBonus($other_ref_code){
+                      global $conn, $bonus_list, $x, $my_ref_code, $amount;
+                      if($x == 5) return;
+                      
+                      if($other_ref_code !== "0"){
+                        $new_sql = "SELECT id, balance, ref_by FROM users WHERE ref_code = $other_ref_code";
+                        $new_query = mysqli_query($conn, $new_sql);// get 1st ger user details and 2nd gen ref code
+            
+                          if(mysqli_num_rows($new_query) != 0){
+                            //new_ot_user_for_bonus = noufb
+                            $noufb = mysqli_fetch_assoc($new_query);
+
+                            $new_ot_ref_code = $noufb['ref_by'];//2nd gen ref code
+
+                            $bonus = ($amount * $bonus_list[$x]) / 100;
+                            $new_balance = $noufb['balance'] + $bonus;
+                            $new_user_id = $noufb['id'];
+                            
+            
+                            $new_sql = "UPDATE users SET balance = '$new_balance' WHERE id = $new_user_id";
+                            
+                            if(mysqli_query($conn, $new_sql)){ //update 1 genaretion data
+                                $new_sql = "INSERT INTO transaction (user_id, amount, massage, trx_id, is_add)
+                                VALUES ('$new_user_id', '$bonus', 'refer bonus', '".generateRandomText()."', 1)";
+                                mysqli_query($conn, $new_sql);                                   
+                            }
+            
+                          }
+                      }else{
+                        return;
+                      }
+                      
+                      $x++;
+                      refBonus($new_ot_ref_code);
+                  }
+                  if($user['buy_first_plan'] == 0){ //first plabn buying
+                    refBonus($ot_ref_code);
+                    $sql = "UPDATE users SET buy_first_plan = '1' WHERE id = ".$user['id'];
+                    mysqli_query($conn, $sql);
+                  }
+                  
+                  // ================================================================================
+                  // ================================================================================
+                  header("location: task.php?success=Successfully buy a plan&q=");
               }
           }
       }  
