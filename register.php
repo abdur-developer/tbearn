@@ -30,8 +30,10 @@ require "includes/dbcon.php";
                         session_start();
                         $_SESSION["id"] = $id + 155;
                         if(strlen($refer) == 8){
-                            $ref_user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT id, total_refer FROM users WHERE ref_code = $refer"));
-                            
+                            $ref_user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT total_refer FROM users WHERE ref_code = $refer"));
+                            $total_refer = $ref_user['total_refer'] + 1;
+                            $sql = "UPDATE users SET total_refer = '$total_refer'  WHERE ref_code = $refer";
+                            mysqli_query($conn, $sql);
                         }
                         header("location: index.php"); 
     
