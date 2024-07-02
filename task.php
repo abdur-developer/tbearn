@@ -118,11 +118,7 @@
                 color: #6f1254;
                 text-decoration: none;
                 background-color: transparent;
-            }
-            a {
                 text-decoration: none;
-            }
-            a {
                 color: #0d6efd;
                 outline: 0 !important;
                 text-decoration: none;
@@ -162,24 +158,24 @@
                                         }else{
                                             $task_id = $row['id'];
                                             $time = $row['time_s'];
-                                            $link = $row['link'];
                                             $amount = $row['amount'];
-                                            //================================?>
-                                            <div class="ad-item">
-                                                <div class="left-box">
-                                                    <h6 class="text-black">Ads</h6>
-                                                    <p class="text-dark">সময় : <?= $time ?> সেকেন্ড</p>
-                                                </div>
-                                                <div class="right-box">
-                                                    <p class="text-danger text-end text-sm"><b>tk <?= $amount ?></b></p>
-                                                    <a href="<?= $link ?>" class="btn btn-danger">দেখুন</a>
-                                                </div>
-                                            </div>
-                                            <?php //==========================
-                                            $sql = "SELECT COUNT(*) as count FROM submit_task WHERE user_id = '".$sessionId."' AND task_id = '$task_id'";
+                                            
+                                            $sql = "SELECT COUNT(*) as count FROM comp_task WHERE user_id = '".$sessionId."' AND task_id = '$task_id'";
                                             $query_x = mysqli_fetch_assoc(mysqli_query($conn,$sql));
                                             
                                             if($query_x['count'] == 0){
+                                                //================================?>
+                                                <div class="ad-item">
+                                                    <div class="left-box">
+                                                        <h6 class="text-black">Ads</h6>
+                                                        <p class="text-dark">সময় : <?= $time ?> সেকেন্ড</p>
+                                                    </div>
+                                                    <div class="right-box">
+                                                        <p class="text-danger text-end text-sm"><b>tk <?= $amount ?></b></p>
+                                                        <a href="<?= 'complet_task.php?bsdvbif=dvdfvdbvdfuv&id='.$task_id.'&sbhcvudfucv'?>" class="btn btn-danger">দেখুন</a>
+                                                    </div>
+                                                </div>
+                                                <?php //==========================
                                                 $x++;
                                             }
                                         }

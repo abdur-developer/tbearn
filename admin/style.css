@@ -46,6 +46,7 @@ header {
 }
 
 .icn {
+  width: 30px;
   height: 30px;
 }
 .menuicn {
@@ -148,7 +149,7 @@ header {
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-  gap: 50px;
+  gap: 10px;
 }
 .nav {
   min-height: 91vh;
@@ -171,6 +172,7 @@ header {
   overflow-y: scroll;
   overflow-x: hidden;
   transition: all 0.5s ease-in-out;
+  z-index: 9999;
 }
 .navcontainer::-webkit-scrollbar {
   display: none;
@@ -178,6 +180,7 @@ header {
 .navclose {
   width: 80px;
 }
+
 .nav-option {
   width: 250px;
   height: 60px;
@@ -186,6 +189,7 @@ header {
   padding: 0 30px 0 20px;
   gap: 20px;
   transition: all 0.1s ease-in-out;
+  text-decoration: none;
 }
 .nav-option:hover {
   border-left: 5px solid #a2a2a2;
@@ -203,22 +207,18 @@ header {
   gap: 30px;
 }
 
-.option1 {
+.nav-option:hover {
   border-left: 5px solid #010058af;
   background-color: var(--Border-color);
   color: white;
   cursor: pointer;
 }
-.option1:hover {
-  border-left: 5px solid #010058af;
-  background-color: var(--Border-color);
-}
 .box {
   height: 130px;
-  width: 230px;
+  width: 150px;
   border-radius: 20px;
   box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
-  padding: 20px;
+  padding: 5px;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -284,25 +284,48 @@ header {
   color: #5500cb;
 }
 
-.view {
-  height: 35px;
-  width: 90px;
+.view-true {
+  height: 25px;
+  width: 60px;
   border-radius: 8px;
-  background-color: #5500cb;
+  background-color: #00ad2b;
   color: white;
-  font-size: 15px;
+  font-size: 12px;
   border: none;
   cursor: pointer;
+  padding: 5px 10px;
+}
+.view-false {
+  height: 25px;
+  width: 60px;
+  border-radius: 8px;
+  background-color: #cf0b04;
+  color: white;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+.view-btn {
+  height: 25px;
+  width: 60px;
+  border-radius: 8px;
+  background-color: #3a04cf;
+  color: white;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
 }
 
 .report-body {
-  max-width: 1160px;
+  max-width: 1000px;
   overflow-x: auto;
   padding: 20px;
 }
 .report-topic-heading,
 .item1 {
-  width: 1120px;
+  width: 900px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -313,7 +336,7 @@ header {
 }
 
 .items {
-  width: 1120px;
+  width: 500px;
   margin-top: 15px;
 }
 
@@ -331,6 +354,20 @@ header {
   text-align: center;
   background-color: rgb(0, 177, 0);
   color: white;
+  border-radius: 4px;
+}
+.label-tag-red {
+  width: 100px;
+  text-align: center;
+  background-color: rgb(177, 0, 0);
+  color: white;
+  border-radius: 4px;
+}
+.label-tag-yellow {
+  width: 100px;
+  text-align: center;
+  background-color: rgb(252, 252, 26);
+  color: black;
   border-radius: 4px;
 }
 /* Responsive CSS Here */
@@ -392,7 +429,7 @@ header {
       margin: 0 0 40px 0;
       justify-content: center;
     }
-    .searchbar2 input {
+    .searchbar2 .ed {
       width: 250px;
       height: 42px;
       border-radius: 50px 0 0 50px;
@@ -494,4 +531,27 @@ header {
       width: 180px;
     }
   }
-  
+.user-action{
+  margin: 20px 10px 0;
+  padding: 20px 10px 0;
+  display: flex;
+  justify-content: space-around;
+}
+.user-action a{
+  width: 120px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  color: white;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+}
+.bg-green{
+  background-color: #00ad2b;
+}
+.bg-red{
+  background-color: #eb1010;
+}
+.bg-orange{
+  background-color: #ee6f07;
+}

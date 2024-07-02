@@ -1,3 +1,6 @@
+<?php
+require "includes/dbcon.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,7 +20,7 @@
                 <div class="flex justify-center min-h-screen items-center rounded-lg">
                     <form id="regi" class="mt-8 mb-2 relative w-80 max-w-screen-lg sm:w-96 bg-white p-5 rounded-lg">
                         <div class="relative h-16">
-                            <img alt="avatar" src="img/logo.png" class="inline-block object-cover object-center !rounded-full rounded-lg absolute left-0 right-0 -top-[4rem] border h-24 mx-auto w-24 border-green-500 bg-white shadow-green-900/20 ring-4 ring-green-500/30"/>
+                            <img alt="avatar" src="<?= $logo_link ?>" class="inline-block object-cover object-center !rounded-full rounded-lg absolute left-0 right-0 -top-[4rem] border h-24 mx-auto w-24 border-green-500 bg-white shadow-green-900/20 ring-4 ring-green-500/30"/>
                         </div>
                         <div class="mb-4 flex flex-col gap-6">
                             <div class="flex items-center border justify-center border-gray-300 rounded-lg overflow-hidden">
@@ -36,28 +39,11 @@
                         <button type="button" class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 text-white shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full hover:bg-[#008000] rounded-lg mt-6 border bg-[#008000] shadow-none flex gap-3 justify-center items-center">Send Otp</button>
                         <p class="block antialiased font-sans text-base leading-relaxed text-gray-700 mt-4 text-center font-normal">
                             Have an account? <br/>
-                            <a class="font-light text-[#008000] transition-colors hover:text-red-700 text-lg" href="/login">Login now</a>
+                            <a class="font-light text-[#008000] transition-colors hover:text-red-700 text-lg" href="login.php">Login now</a>
                         </p>
                     </form>
                 </div>
             </div>
-            <div style="position:fixed;z-index:9999;top:16px;left:16px;right:16px;bottom:16px;pointer-events:none"></div>
         </div>
-        <script id="__NEXT_DATA__" type="application/json">
-            {
-                "props": {
-                    "pageProps": {
-                    }
-                },
-                "page": "/forgot",
-                "query": {
-                },
-                "buildId": "UX3a12h5SzfcRqHiFIPPJ",
-                "nextExport": true,
-                "autoExport": true,
-                "isFallback": false,
-                "scriptLoader": [
-                ]
-            }</script>
     </body>
 </html>

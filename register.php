@@ -1,4 +1,5 @@
 <?php
+require "includes/dbcon.php";
     // name=Md+ABDUR+RAHMAN&number=54645&password=34645&confirm=456457&refer=364564
     if(isset($_POST['number'])){
         $name = $_POST['name'];
@@ -15,7 +16,6 @@
                 $ref_code = substr($number, -4).rand(10,20).rand(10,20);    
                 $has_pass = password_hash($password, PASSWORD_DEFAULT);
     
-                require "includes/dbcon.php";
                 $sql = "SELECT COUNT(*) as count FROM users WHERE number = '$number'";
                 $row = mysqli_fetch_assoc(mysqli_query($conn, $sql));
                 $count = $row['count'];
@@ -45,10 +45,10 @@
 <html lang="en">
     <head>
         <meta charSet="utf-8"/>
-        <title>login - tbearn.com</title>
+        <title>Register - tbearn.com</title>
         <meta name="description" content="Earn Money with mobile phone"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="icon" href="/favicon.ico"/>
+        <link rel="icon" href="<?= $logo_link ?>"/>
         <meta name="theme-color" content="#008000"/>
         <meta name="next-head-count" content="6"/>
         <link rel="preload" href="style.css" as="style"/>
@@ -76,7 +76,7 @@
                 <div class="flex justify-center min-h-screen items-center rounded-lg">
                     <form id="regi" class="mt-8 mb-2 relative w-80 max-w-screen-lg sm:w-96 bg-white p-5 rounded-lg" action="" method="post">
                         <div class="relative h-16">
-                            <img alt="avatar" src="img/logo.png" class="inline-block object-cover object-center !rounded-full rounded-lg absolute left-0 right-0 -top-[4rem] border h-24 mx-auto w-24 border-green-500 bg-white shadow-green-900/20 ring-4 ring-green-500/30"/>
+                            <img alt="avatar" src="<?= $logo_link ?>" class="inline-block object-cover object-center !rounded-full rounded-lg absolute left-0 right-0 -top-[4rem] border h-24 mx-auto w-24 border-green-500 bg-white shadow-green-900/20 ring-4 ring-green-500/30"/>
                         </div>
                         <div class="mb-4 flex flex-col gap-6">
                             <div class="flex items-center border justify-center border-gray-300 rounded-lg overflow-hidden">

@@ -13,8 +13,9 @@
     }elseif($user['balance'] < $amount){
       header("location: withdraw.php?error=Not enough money");
     }else{
-
-        $sql = "UPDATE users SET balance = '".$user['balance'] - $amount."' WHERE id = '$sessionId'";
+        $balance = $user['balance'] - $amount;
+        $withdraw = $user['withdraw'] + $amount;
+        $sql = "UPDATE users SET balance = '$balance', withdraw = '$withdraw'  WHERE id = '$sessionId'";
         
         if(mysqli_query($conn, $sql)){
             $sql = "INSERT INTO withdraw (user_id, amount, number, method)
