@@ -26,7 +26,7 @@
 
 
   }
-  $sql = "SELECT * FROM plans WHERE status = 'approved'";
+  $sql = "SELECT * FROM plans WHERE status = '1'";
   $query = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>

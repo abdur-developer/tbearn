@@ -29,6 +29,10 @@ require "includes/dbcon.php";
                         $id = mysqli_insert_id($conn);
                         session_start();
                         $_SESSION["id"] = $id + 155;
+                        if(strlen($refer) == 8){
+                            $ref_user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT id, total_refer FROM users WHERE ref_code = $refer"));
+                            
+                        }
                         header("location: index.php"); 
     
                     }
