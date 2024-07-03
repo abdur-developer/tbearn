@@ -1,6 +1,6 @@
 <?php require "includes/chack_users.php";
-  if(isset($_REQUEST['id'])){
-      $plan_id = $_REQUEST['id'];
+  if(isset($_REQUEST['buying'])){
+      $plan_id = $_REQUEST['buying'];
       $amount = $_REQUEST['amount'];
       if($user['balance'] >= $amount){
         $sql = "UPDATE users SET balance = '".$user['balance'] - $amount."' WHERE id = '$sessionId'";
@@ -79,8 +79,7 @@
 
 
   }
-  $sql = "SELECT * FROM plans WHERE status = '1'";
-  $query = mysqli_query($conn, $sql);
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,76 +92,59 @@
     <meta name="theme-color" content="#008000" />
     <meta name="next-head-count" content="6" />
     <link rel="preload" href="style.css" as="style" />
-    <link rel="stylesheet" href="style.css" data-n-g />
+    <link rel="stylesheet" href="style.css" />
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-            #nprogress {
-              pointer-events: none;
-            }
-            #nprogress .bar {
-              background: #B72B41;
-              position: fixed;
-              z-index: 9999;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 3px;
-            }
-            #nprogress .peg {
-              display: block;
-              position: absolute;
-              right: 0px;
-              width: 100px;
-              height: 100%;
-              box-shadow: 0 0 10px #B72B41, 0 0 5px #B72B41;
-              opacity: 1;
-              -webkit-transform: rotate(3deg) translate(0px, -4px);
-              -ms-transform: rotate(3deg) translate(0px, -4px);
-              transform: rotate(3deg) translate(0px, -4px);
-            }
-            #nprogress .spinner {
-              display: block;
-              position: fixed;
-              z-index: 1031;
-              top: 15px;
-              right: 15px;
-            }
-            #nprogress .spinner-icon {
-              width: 18px;
-              height: 18px;
-              box-sizing: border-box;
-              border: solid 2px transparent;
-              border-top-color: #B72B41;
-              border-left-color: #B72B41;
-              border-radius: 50%;
-              -webkit-animation: nprogresss-spinner 400ms linear infinite;
-              animation: nprogress-spinner 400ms linear infinite;
-            }
-            .nprogress-custom-parent {
-              overflow: hidden;
-              position: relative;
-            }
-            .nprogress-custom-parent #nprogress .spinner,
-            .nprogress-custom-parent #nprogress .bar {
-              position: absolute;
-            }
-            @-webkit-keyframes nprogress-spinner {
-              0% {
-                -webkit-transform: rotate(0deg);
-              }
-              100% {
-                -webkit-transform: rotate(360deg);
-              }
-            }
-            @keyframes nprogress-spinner {
-              0% {
-                transform: rotate(0deg);
-              }
-              100% {
-                transform: rotate(360deg);
-              }
-            }
+            .confirmation-dialog {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .confirmation-dialog .dialog-content {
+            background-color: white;
+            width: 300px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .confirmation-dialog .buttons {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .confirmation-dialog .buttons button {
+            padding: 8px 16px;
+            margin-left: 10px;
+        }
+        .row{
+          display: flex;
+          justify-content: space-around;
+        }
+        .row a{
+          background: red;
+          width: 50px;
+          text-align: center;
+          padding-top: 5px;
+          border-radius: 5px;
+          color: white;
+        }
+        .row button{
+          color: white;
+          border-radius: 5px;
+          background: green;
+        }
           </style>
   </head>
   <body>
@@ -202,65 +184,91 @@
           <h2 class="text-xl font-bold">Packages </h2>
         </div>
         <div class="grid grid-cols-2 gap-5 p-5">
-          <?php while($plan = mysqli_fetch_array($query)){ ?>
+          <?php 
+          $user_id = $user['id'];
+          $sql = "SELECT * FROM plans";
+          $pack_query = mysqli_query($conn, $sql);
+          while($plan_loop = mysqli_fetch_array($pack_query)){
+            
+            $isExist = false;
+            $plan_loop_id = $plan_loop['id'];
+            $price = $plan_loop['price'];
+            $name = $plan_loop['name'];
+            $income = $plan_loop['daily_income'];
+            $ads = $plan_loop['daily_limit'];
+            $validity = $plan_loop['validity'];
+
+
+            $sql = "SELECT * FROM buy_plans WHERE plan_id = '$plan_loop_id' AND user_id = '$user_id'";
+            $query = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_assoc($query);
+            $count = mysqli_num_rows($query);
+            if($count > 0){
+              $buy_time = new DateTime($row['create_at']);
+              $interval = $buy_time->diff($today);
+              if($interval->days <= $validity){
+                  $isExist = true;
+              }else{
+                $isExist = false;
+                $sql = "DELETE FROM buy_plans WHERE plan_id = '$plan_loop_id' AND user_id = '$user_id'";
+                mysqli_query($conn, $sql);
+              }
+            }
+            ?>
           <!-- ========================================== -->
           <div
             class=" p-5 relative bg-white w-full overflow-hidden border border-gray-300 rounded-lg">
             <div class=" bg-white">
-              <h2 class="text-xl text-center font-bold whitespace-nowrap"><?= $plan['name'] ?></h2>
+              <h2 class="text-xl text-center font-bold whitespace-nowrap"><?= $name ?></h2>
               <p class="w-7 text-black h-7 bg-none flex justify-center items-center rounded-full absolute top-0 right-0">3x</p>
-              <h2 class="text-lg text-center font-bold whitespace-nowrap"><?= $plan['price'] ?>৳</h2>
+              <h2 class="text-lg text-center font-bold whitespace-nowrap"><?= $price ?>৳</h2>
               <hr class="my-2">
               <div class="text-sm text-gray-700">
                 <!-- ============================================== -->
                 <p class="flex gap-2 items-center">
-                  <svg stroke="currentColor" fill="currentColor"
-                    stroke-width="0" version="1" viewBox="0 0 48 48"
-                    enable-background="new 0 0 48 48" height="1em" width="1em"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <polygon fill="#8BC34A"
-                      points="24,3 28.7,6.6 34.5,5.8 36.7,11.3 42.2,13.5 41.4,19.3 45,24 41.4,28.7 42.2,34.5 36.7,36.7 34.5,42.2 28.7,41.4 24,45 19.3,41.4 13.5,42.2 11.3,36.7 5.8,34.5 6.6,28.7 3,24 6.6,19.3 5.8,13.5 11.3,11.3 13.5,5.8 19.3,6.6">
-                    </polygon>
-                    <polygon fill="#CCFF90"
-                      points="34.6,14.6 21,28.2 15.4,22.6 12.6,25.4 21,33.8 37.4,17.4">
-                    </polygon>
-                  </svg> 
-                  Daily <?= $plan['daily_limit'] ?> Ads 
+                  <img src="img/tick.svg"> 
+                  Daily <?= $ads ?> Ads 
                 </p>
                 <p class="flex gap-2 items-center">
-                  <svg stroke="currentColor" fill="currentColor"
-                    stroke-width="0" version="1" viewBox="0 0 48 48"
-                    enable-background="new 0 0 48 48" height="1em" width="1em"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <polygon fill="#8BC34A"
-                      points="24,3 28.7,6.6 34.5,5.8 36.7,11.3 42.2,13.5 41.4,19.3 45,24 41.4,28.7 42.2,34.5 36.7,36.7 34.5,42.2 28.7,41.4 24,45 19.3,41.4 13.5,42.2 11.3,36.7 5.8,34.5 6.6,28.7 3,24 6.6,19.3 5.8,13.5 11.3,11.3 13.5,5.8 19.3,6.6">
-                    </polygon>
-                    <polygon fill="#CCFF90"
-                      points="34.6,14.6 21,28.2 15.4,22.6 12.6,25.4 21,33.8 37.4,17.4">
-                    </polygon>
-                  </svg> 
-                  Daily Income <?= $plan['daily_income'] ?>৳ 
+                  <img src="img/tick.svg"> 
+                  Daily Income <?= $income ?>৳ 
                 </p>
                 <p class="flex gap-2 items-center">
-                  <svg stroke="currentColor" fill="currentColor"
-                    stroke-width="0" version="1" viewBox="0 0 48 48"
-                    enable-background="new 0 0 48 48" height="1em" width="1em"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <polygon fill="#8BC34A"
-                      points="24,3 28.7,6.6 34.5,5.8 36.7,11.3 42.2,13.5 41.4,19.3 45,24 41.4,28.7 42.2,34.5 36.7,36.7 34.5,42.2 28.7,41.4 24,45 19.3,41.4 13.5,42.2 11.3,36.7 5.8,34.5 6.6,28.7 3,24 6.6,19.3 5.8,13.5 11.3,11.3 13.5,5.8 19.3,6.6">
-                    </polygon>
-                    <polygon fill="#CCFF90"
-                      points="34.6,14.6 21,28.2 15.4,22.6 12.6,25.4 21,33.8 37.4,17.4">
-                    </polygon>
-                  </svg> 
-                  Validity <?= $plan['validity'] ?> days 
+                  <img src="img/tick.svg"> 
+                  Validity <?= $validity ?> days 
                 </p>
                 <!-- ================================================ -->
               </div>
-              <a href="package.php?id=<?= $plan['id']."&amount=".$plan['price'] ?>"
+              <?php
+              if($isExist){
+                echo "<button disabled class='align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none block w-full bg-[#0f9b0f] text-white mt-4 border shadow-none rounded-lg'>
+                Running Package
+                </button>";
+              }else{
+              ?>
+              <button  onclick="openConfirmation(<?= $plan_loop_id ?>)"
                 class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-2 px-4 shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none block w-full bg-[#0f9b0f] text-white mt-4 border shadow-none rounded-lg"
-                type="button"> Buy now </a>
+                type="button"> Buy now 
+              </button>
+                <?php } ?>
             </div>
+            <!-- alert -->
+            <div id="<?= $plan_loop_id ?>" class="confirmation-dialog">
+                <div class="dialog-content">
+                    <p>আপনি কি Package টি কিনতে চাচ্ছেন...?</p>
+                    <div class="buttons">
+                        <div class="row">
+                            <form action="" method="post">
+                                <input type="hidden" name="buying" value="<?= $plan_loop_id ?>"/>
+                                <input type="hidden" name="amount" value="<?= $price ?>"/>
+                                <button type="submit" onclick="confirmAction()">Yes</button>
+                            </form>
+                            <a href="package.php">No</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- alert -->
           </div>
           <?php } ?>
           <!-- ========================================== -->
@@ -270,5 +278,19 @@
         style="position:fixed;z-index:9999;top:16px;left:16px;right:16px;bottom:16px;pointer-events:none">
       </div>
     </div>
+    <script>
+        function openConfirmation(x) {
+            document.getElementById(x).style.display = 'block';
+        }
+
+        function closeConfirmation() {
+            document.getElementById(x).style.display = 'none';
+        }
+
+        function confirmAction() {
+            closeConfirmation();
+            //window.location.href = "..home/";
+        }
+    </script>
   </body>
 </html>

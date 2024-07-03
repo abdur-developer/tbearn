@@ -13,14 +13,14 @@ if(isset($_REQUEST['trx'])){
             VALUES ('$method', '$amount', '$trx', '$sessionId')";
             
             if(mysqli_query($conn, $sql)){
-                header("location: index.php?success=Deposit successfull please wait for confirmation");
+                header("location: transection.php?success=Deposit successfull please wait for confirmation");
             }
         }else{
-            header("location: index.php?error=This is not a transection Id");
+            header("location: transection.php?error=This is not a transection Id");
         }
         
     }else{
-        header("location: index.php?error=Transection Id already inserted");
+        header("location: transection.php?error=Transection Id already inserted");
     }
     
 }

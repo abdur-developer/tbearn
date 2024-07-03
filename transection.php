@@ -12,6 +12,7 @@
         <link rel="preload" href="style.css" as="style"/>
         <link rel="stylesheet" href="bootstrap.min.css"/>
         <link rel="stylesheet" href="style.css" data-n-g=""/>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <style>
             img {
                 height: 60px;
@@ -122,6 +123,32 @@
     </head>
     <body>
         <div id="__next">
+            <?php
+                if(isset($_REQUEST['error'])){
+                    $error = $_REQUEST['error'];
+                    echo "
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: '$error'
+                            });
+                    </script>
+                    ";
+                }
+                if(isset($_REQUEST['success'])){
+                    $success = $_REQUEST['success'];
+                    echo "
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'WOW...',
+                            text: '$success'
+                            });
+                    </script>
+                    ";
+                }
+            ?>
             <div class="min-h-screen bg-[#ebebeb] pb-10">
                 <div class="h-14 w-full bg-[#008000] pl-4  gap-5 shadow text-white flex items-center ">
                     <a href="index.php">
@@ -131,6 +158,27 @@
                 </div>
                 <div class="bg-white m-5 rounded-lg overflow-hidden">
                 <?php
+                    $trx_d = mysqli_query($conn, "SELECT * FROM deposit WHERE user_id = '$sessionId' AND status = '0'");
+                    while($trx = mysqli_fetch_array($trx_d)){ ?>
+                        <div class="border-b rounded-b-none border-gray-300 flex px-4 justify-between items-center gap-2 p-2 mb-2 rounded-lg">
+                            <div class="flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="h-8 text-green-600 cursor-pointer w-8 ">
+                                    <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" clip-rule="evenodd"></path>
+                                </svg>
+                                <div>
+                                    <h2 class="text-lg -mb-1">Diposit </h2>
+                                    <p class="text-sm text-red-700"><span class="text-black">trx :</span> <?= $trx['trx_id'] ?> <b>(Pending)</b></p>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-right " <?= is_add_trx(1) ?> > <?= $trx['amount'] ?></h3>
+                                <!-- color: #B9315E ; -->
+                                <p class="text-right text-sm text-gray-700"><?= getDefferenceTime($trx['time']) ?></p>
+                            </div>
+                        </div>
+                <?php
+                    }
+                    //=================================================================================
                     $trx_s = mysqli_query($conn, "SELECT * FROM transaction WHERE user_id = '$sessionId'");
                     while($trx = mysqli_fetch_array($trx_s)){ ?>
                         <div class="border-b rounded-b-none border-gray-300 flex px-4 justify-between items-center gap-2 p-2 mb-2 rounded-lg">
