@@ -106,14 +106,13 @@
             }
         ?>
 		<main class="flex bg-white min-h-screen mb-10 min-w-screen flex-col justify-start items-baseline">
-			<div class="bg-white w-full p-3 flex items-center gap-3">
+			<div class="bg-[#008000] w-full p-3 flex items-center gap-3">
 				<div>
 					<img src="img/profile.jpg" alt="avatar" class="inline-block relative object-cover object-center !rounded-full w-12 h-12 rounded-lg border-2 border-white">
 				</div>
 				<div>
-					<h2 class="text-black text-xl mb-1"><?= $user["name"] ?></h2>
-					<span onClick="tapForBalance()" style="background: #0000ff; padding: 3px 5px;"
-                    class="bg-[#0000FF] text-sm text-white rounded-full cursor-pointer flex items-center gap-1">
+					<h2 class="text-white text-xl mb-1"><?= $user["name"] ?></h2>
+					<span onClick="tapForBalance()" class="bg-[#fff]  text-sm px-1 text-[#444] rounded-full cursor-pointer flex items-center gap-1">
 						<img src="img/tap.jpg" alt class="h-4 rounded-full w-4">
 						<span id="bText">Tap for Balance</span>
 						<span id="bNumber" class="hidden"><?= $user['balance'] ?> taka</span>
@@ -127,110 +126,135 @@
 			</a>
 			
 			<div class="p-5 w-full ">
-                <div class="w-full h-[140px] lg:h-[80vh] overflow-hidden mt-5 rounded">
-                    <div class="x-slider">
-                        <div class="carousel">
-                            <?php
-                                $sliders = mysqli_query($conn, "SELECT * FROM slider");
-                                while($slider = mysqli_fetch_array($sliders)){
-                                    echo "<div class='carousel-item'> 
-                                        <div class='slide-image'>
-                                            <img src='".$slider["link"]."'>
-                                        </div> 
-                                    </div>";
-                                }
-                            ?>
-                            
-                        </div> 
-                    </div>
-				</div>
 				<div class="border border-gray-300 rounded-lg">
-					<h2 class="p-3 text-[#008000] text-xl font-bold">All Services</h2>
+					<h2 class="p-3 text-[#008000] text-xl font-bold">My TB Earn</h2>
 					<hr class="border-gray-300">
 					<div class="grid  grid-cols-4 gap-5 rounded-lg my-4">
 						<a href="task.php">
-                            <div class="cursor-pointer ">
-                                <div class="flex justify-center items-center flex-col">
-                                    <img  class="h-10 cursor-pointer w-10 " src="img/temp_1/task.png">
-                                    <h2 class=" text-black mt-2 text-center text-sm">My Task</h2>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="deposit.php">
-                            <div class="cursor-pointer ">
-                                <div class="flex justify-center items-center flex-col">
-                                    <img  class="h-10 cursor-pointer w-10 " src="img/temp_1/invest.png">
-                                    <h2 class=" text-black mt-2 text-center text-sm">Invest</h2>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="withdraw.php">
-                            <div class="cursor-pointer ">
-                                <div class="flex justify-center items-center flex-col">
-                                    <img  class="h-10 cursor-pointer w-10 " src="img/temp_1/withdraw.png">
-                                    <h2 class=" text-black mt-2 text-center text-sm">Withdraw</h2>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="package.php">
-                            <div class="cursor-pointer ">
-                                <div class="flex justify-center items-center flex-col">
-                                    <img  class="h-10 cursor-pointer w-10 " src="img/temp_1/plan.png">
-                                    <h2 class=" text-black mt-2 text-center text-sm">Plan</h2>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="profile.php">
-                            <div class="cursor-pointer ">
-                                <div class="flex justify-center items-center flex-col">
-                                    <img  class="h-10 cursor-pointer w-10 " src="img/temp_1/profile.png">
-                                    <h2 class=" text-black mt-2 text-center text-sm">Profile</h2>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="transection.php">
-                            <div class="cursor-pointer ">
-                                <div class="flex justify-center items-center flex-col">
-                                    <img  class="h-10 cursor-pointer w-10 " src="img/temp_1/transection.png">
-                                    <h2 class=" text-black mt-2 text-center text-sm">Transection</h2>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="refer.php">
-                            <div class="cursor-pointer ">
-                                <div class="flex justify-center items-center flex-col">
-                                    <img  class="h-10 cursor-pointer w-10 " src="img/temp_1/refer.png">
-                                    <h2 class=" text-black mt-2 text-center text-sm">Refer</h2>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="helpline.php">
-                            <div class="cursor-pointer ">
-                                <div class="flex justify-center items-center flex-col">
-                                    <img  class="h-10 cursor-pointer w-10 " src="img/temp_1/customer.png">
-                                    <h2 class=" text-black mt-2 text-center text-sm">Helpline</h2>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+							<div class="cursor-pointer flex items-center flex-col">
+								<img color="#946e58" width="500" height="500" class="h-10 cursor-pointer w-10 " src="img/work.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">My Work</h2>
+							</div>
+						</a>
+						<a href="deposit.php">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img color="#6ea787" width="500" height="500" class="h-10 cursor-pointer w-10" src="img/deposit.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">Deposit</h2>
+							</div>
+						</a>
+						<a href="withdraw.php">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img color="#1e8a8b" width="500" height="500" class="h-10 cursor-pointer w-10" src="img/withdraw.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">Withdraw</h2>
+							</div>
+						</a>
+						<a href="package.php">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img color="#ee8857" width="500" height="500" class="h-10 cursor-pointer w-10 " src="img/package.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">Packages</h2>
+							</div>
+						</a>
+						<a href="profile.php">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img color="#8a4095" width="500" height="500" class="h-10 cursor-pointer w-10 " src="img/profile.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">Profile</h2>
+							</div>
+						</a>
+						<a href="refer.php">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img color="#b2428e" width="500" height="500" class="h-10 cursor-pointer w-10 " src="img/refer.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">Refer</h2>
+							</div>
+						</a>
+						<a href="transection.php">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img color="#5d7369" width="500" height="500" class="h-10 cursor-pointer w-10" src="img/transactions.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">Transaction</h2>
+							</div>
+						</a>
+						<a href="helpline.php">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img color="#946e58" width="500" height="500" class="h-10 cursor-pointer w-10 " src="img/helpline.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">Helpline</h2>
+							</div>
+						</a>
+					</div>
 				</div>
-				
-				<div class="border border-gray-300 rounded-lg mt-3">
-                    <a target="_blank" href="">
-                        <div class="bg-white rounded-lg shadow-lg border border-gray-300 flex items-center">
-                            <div class="m-5">
-                                <img src="img/yt.webp" class="h-10 w-10 ">
-                            </div>
-                            <div>
-                                <h2 class="text-xl font-bold">How To Work</h2>
-                                <h3>Click here to see youtube video tutorial</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+				<div class="w-full h-[140px] lg:h-[80vh] overflow-hidden mt-5 rounded">
+				<div class="x-slider">
+					<div class="carousel">
+						<?php
+							$sliders = mysqli_query($conn, "SELECT * FROM slider");
+							while($slider = mysqli_fetch_array($sliders)){
+								echo "<div class='carousel-item'> 
+									<div class='slide-image'>
+										<img src='".$slider["link"]."'>
+									</div> 
+								</div>";
+							}
+						?>
+						
+					</div> 
+				</div>
+				</div>
+				<div class="border border-gray-300 rounded-lg mt-5">
+					<h2 class="p-3 text-[#008000] text-xl font-bold">Company</h2>
+					<hr class="border-gray-300">
+					<div class="grid  grid-cols-4 gap-5 rounded-lg my-4">
+						<a href="setting.php">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img width="500" height="500" class="h-10 cursor-pointer w-10" src="img/set.avif" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">Settings</h2>
+							</div>
+						</a>
+						<a href="about.php">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img width="500" height="500" class="h-10 cursor-pointer w-10" src="img/about.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">About</h2>
+							</div>
+						</a>
+						<a href="">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img width="500" height="500" class="h-10 cursor-pointer w-10" src="img/yt.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">HTW</h2>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="border border-gray-300 rounded-lg mt-5">
+					<h2 class="p-3 text-[#008000] text-xl font-bold">Our Partner</h2>
+					<hr class="border-gray-300">
+					<div class="grid  grid-cols-4 gap-5 rounded-lg my-4">
+						<a target="blank" href="https://www.daraz.com.bd/">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img width="500" height="500" class="h-10 cursor-pointer w-10" src="img/daraz.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">Daraz</h2>
+							</div>
+						</a>
+						<a target="blank" href="https://www.ajkerdeal.com/">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img width="500" height="500" class="h-10 cursor-pointer w-10" src="img/ajkerdeal.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">AjkerDeal</h2>
+							</div>
+						</a>
+						<a target="blank" href="https://www.Bikroy.com/">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img width="500" height="500" class="h-10 cursor-pointer w-10" src="img/bikroy.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">Bikroy</h2>
+							</div>
+						</a>
+						<a target="blank" href="https://www.othoba.com/">
+							<div class="cursor-pointer flex items-center flex-col">
+								<img width="500" height="500" class="h-10 cursor-pointer w-10" src="img/othoba.webp" style="color: transparent;">
+								<h2 class=" text-black mt-2 text-center">Othoba</h2>
+							</div>
+						</a>
+					</div>
+				</div>
 			</div>
 		</main>
-	</div><script>
+	</div>
+	<script>
 		function tapForBalance(){
 			var balance = document.getElementById('bNumber');
 			var bText = document.getElementById('bText');
