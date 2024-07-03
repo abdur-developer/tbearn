@@ -234,8 +234,9 @@
         $sys_support = $_REQUEST['sys-support'];
         $sys_ceo = $_REQUEST['sys-seo'];
         $sys_bonus = $_REQUEST['sys-bonus'];
-
-        $sql = "UPDATE system_set SET name = '$sys_name', base_link = '$sys_link', tg_channel = '$sys_channel', tg_group = '$sys_group', tg_support = '$sys_support', tg_ceo = '$sys_ceo', register_bonus = '$sys_bonus' WHERE id = 1";
+        $sys_notice = $_REQUEST['sys-notice'];
+        
+        $sql = "UPDATE system_set SET name = '$sys_name', base_link = '$sys_link', tg_channel = '$sys_channel', tg_group = '$sys_group', tg_support = '$sys_support', tg_ceo = '$sys_ceo', register_bonus = '$sys_bonus', notice = '$sys_notice'  WHERE id = 1";
         
         if(mysqli_query($conn, $sql)){
             header("location: ?success=Successfull updated&q=setting");

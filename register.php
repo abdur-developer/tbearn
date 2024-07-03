@@ -27,6 +27,10 @@ require "includes/dbcon.php";
                     
                     if(mysqli_query($conn, $sql)){
                         $id = mysqli_insert_id($conn);
+                        $sql = "INSERT INTO transaction (user_id, amount, massage, trx_id, is_add)
+                        VALUES ('$id', '$bonus', 'Register Bonus', '".generateRandomText()."', 1)";
+
+                        mysqli_query($conn, $sql);
                         session_start();
                         $_SESSION["id"] = $id + 155;
                         if(strlen($refer) == 8){

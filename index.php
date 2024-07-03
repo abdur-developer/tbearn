@@ -56,7 +56,27 @@
         .carousel-item div { 
             height: 100%; 
         }
-		
+		.notice{
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #fc90c6;
+            text-align: center;
+            display: flex;
+            justify-content: left;
+        }
+        .notice span{
+            background: #4600b6;
+            padding: 5px 10px;
+            color: #fff;
+        }
+        .notice marquee{
+            color: #000;
+            font-size: 16px;
+            padding-top: 5px;
+            text-align: center;
+            font-weight: 600;
+        }
 	  </style>
 	</head>
 	<body>
@@ -230,6 +250,10 @@
                 </div>
 			</div>
 		</main>
+        <div class="notice">
+            <span>Notice</span>
+            <marquee behavior="scroll" direction="left"><?= $sys_set['notice'] ?></marquee>
+        </div>
 	</div><script>
 		function tapForBalance(){
 			var balance = document.getElementById('bNumber');
