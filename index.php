@@ -146,8 +146,8 @@
 				</span>
 			</a>
 			
-			<div class="p-5 w-full ">
-                <div class="w-full h-[140px] lg:h-[80vh] overflow-hidden mt-5 rounded">
+			<div class="py-5 w-full ">
+                <div class="w-full h-[170px] lg:h-[80vh] overflow-hidden mt-5 rounded">
                     <div class="x-slider">
                         <div class="carousel">
                             <?php
@@ -254,7 +254,8 @@
             <span>Notice</span>
             <marquee behavior="scroll" direction="left"><?= $sys_set['notice'] ?></marquee>
         </div>
-	</div><script>
+	</div>
+    <script>
 		function tapForBalance(){
 			var balance = document.getElementById('bNumber');
 			var bText = document.getElementById('bText');
